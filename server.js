@@ -1,6 +1,8 @@
 // Boilerplate Code for Virtual Assistant API
+const { error } = require('console');
 const express = require('express');
 const app = express();
+
 
 /*
 Task:
@@ -32,6 +34,35 @@ Example Responses:
 
 Add the required logic below to complete the API.
 */
+
+const dayMessage=()=>{
+
+  const message=[
+    "Happy Monday! Start your week with energy!",
+    "Have a wonderful day!",
+    "Have a wonderful day!",
+    "Have a wonderful day!",
+    "It's Friday! The weekend is near!",
+    "Have a wonderful day!",
+    "Have a wonderful day!"
+  ]
+  const day=new Date().getDay()
+  return message[day]
+
+}
+
+app.get('/assistant/greet',(req,res)=>{
+  const name=req.query.name
+
+  if (!name){
+    return res.status(404).json({error:"Please Enter a Name"})
+  }
+  const msg1=`Hello, ${name}! Welcome to our assistant app!`
+
+  const msg2=dayMessage()
+
+  res.status(200).json({msg1,msg2})
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {
